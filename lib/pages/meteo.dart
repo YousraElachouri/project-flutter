@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class MeteoPage extends StatelessWidget {
 
   String ? city;
-  TextEditingController cityController = new TextEditingController();
+  TextEditingController txt_ville = new TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,7 @@ class MeteoPage extends StatelessWidget {
                   hintText: 'Ville',
                   prefixIcon: Icon(Icons.location_city),
               ),
-                  controller: cityController,
+                  controller: txt_ville,
 
             ),
           ),
@@ -40,16 +40,14 @@ class MeteoPage extends StatelessWidget {
     );
   }
 
-  Future<void> _onGetMeteoDetails(BuildContext context) async {
-    if (!cityController.text.isEmpty) {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => MeteoDetailsPage(cityController.text),
-    ));
-    }
-    else {
-      const snackBar = SnackBar(content: Text('Id ou mot de passe vide'),
-      );
-      ScaffoldMessenger.of(context).showSnackBar(snackBar);
-    }
+
+  void _onGetMeteoDetails(BuildContext context) {
+    String v=txt_ville.text;
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => MeteoDetailsPage(v)));
+    txt_ville.text = "";
   }
+
 }
